@@ -8,7 +8,7 @@ if command -v uv &> /dev/null; then
   UV_CMD="uv"
 else
   PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-  LOCAL_UV="$PROJECT_ROOT/backend/bin/uv/uv"
+  LOCAL_UV="$PROJECT_ROOT/backend/bin/uv"
   if [ -f "$LOCAL_UV" ]; then
     UV_CMD="$LOCAL_UV"
   else

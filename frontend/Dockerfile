@@ -6,7 +6,7 @@ FROM frontend-builder:latest AS build-stage
 
 COPY ./frontend ./
 
-RUN npm run build
+RUN pnpm run build
 
 
 # Stage 1: production — serves compiled static files via nginx

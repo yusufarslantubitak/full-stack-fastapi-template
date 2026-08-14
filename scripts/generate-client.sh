@@ -22,13 +22,13 @@ docker run --rm \
   -v "$PROJECT_ROOT/frontend:/app/frontend" \
   -w /app/frontend \
   frontend-builder:latest \
-  npm run generate-client
+  pnpm run generate-client
 
 # Lint the generated code
 docker run --rm \
   -v "$PROJECT_ROOT/frontend:/app/frontend" \
   -w /app/frontend \
   frontend-builder:latest \
-  npm run lint
+  pnpm run lint
 
 echo "Done! Client SDK successfully regenerated."

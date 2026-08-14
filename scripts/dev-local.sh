@@ -9,7 +9,7 @@ cd "$PROJECT_ROOT"
 if command -v uv &> /dev/null; then
   UV_CMD="uv"
 else
-  LOCAL_UV="$PROJECT_ROOT/backend/bin/uv/uv"
+  LOCAL_UV="$PROJECT_ROOT/backend/bin/uv"
   if [ -f "$LOCAL_UV" ]; then
     UV_CMD="$LOCAL_UV"
   else
@@ -33,7 +33,7 @@ $UV_CMD run bash scripts/prestart.sh
 # 3. Setup frontend locally
 echo "Installing frontend dependencies..."
 cd "$PROJECT_ROOT/frontend"
-npm install
+pnpm install
 
 # 4. Start local development servers
 echo "Starting local development servers..."
@@ -56,6 +56,6 @@ $UV_CMD run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000 &
 
 # Start frontend dev server in background
 cd "$PROJECT_ROOT/frontend"
-npm run dev -- --host &
+pnpm run dev --host &
 
 wait -n
