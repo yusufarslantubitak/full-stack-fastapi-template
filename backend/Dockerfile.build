@@ -9,7 +9,7 @@ ENV UV_PYTHON_DOWNLOADS=never
 ENV PATH="/app/.venv/bin:$PATH"
 
 WORKDIR /app/backend
-COPY backend/bin/uv/ /usr/local/bin/
+COPY backend/bin/ /usr/local/bin/
 RUN chmod +x /usr/local/bin/uv /usr/local/bin/uvx
 
 COPY backend/pyproject.toml backend/uv.toml backend/uv.lock* ./
