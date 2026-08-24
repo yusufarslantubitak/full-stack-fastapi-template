@@ -1,10 +1,29 @@
 # Frontend Guide
 
-This is a guide for frontend-specific tasks like client SDK generation and configuration.
+This is a guide for frontend-specific tasks like client SDK generation, development, and configuration.
 
 ---
 
-## 1. Client SDK Generation
+## 1. Getting Started
+
+### 1.1. Install pnpm (if not already installed)
+```bash
+npm install -g pnpm
+```
+
+### 1.2. Install dependencies
+```bash
+pnpm install
+```
+
+### 1.3. Start development server
+```bash
+pnpm run dev
+```
+
+---
+
+## 2. Client SDK Generation
 
 To regenerate the frontend TypeScript API client SDK when the backend routes change (run from the project root):
 ```bash
@@ -13,7 +32,7 @@ bash ./scripts/generate-client.sh
 
 ---
 
-## 2. Using a Remote API
+## 3. Using a Remote API
 
 If you want to use a remote API, you can set the environment variable `VITE_API_URL` to the URL of the remote API in your `frontend/.env` file:
 ```env
@@ -22,7 +41,7 @@ VITE_API_URL=https://api.my-domain.example.com
 
 ---
 
-## 3. Code Structure
+## 4. Code Structure
 
 ```text
 frontend/

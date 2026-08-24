@@ -15,7 +15,7 @@ Depending on how you choose to run the development environment:
   - **Docker**: For running the database container.
   - **Python (3.13.12)**: For running the backend locally.
   - **uv**: Python package manager.
-  - **Node.js (22)** & **pnpm**: For running the frontend locally.
+  - **Node.js (22)** & **pnpm**: For running the frontend locally (install pnpm via `npm install -g pnpm` or `corepack enable`).
 
 ---
 
