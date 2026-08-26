@@ -1,9 +1,9 @@
-import { createFileRoute, redirect } from "@tanstack/react-router"
-import type { UserPublic } from "@/client"
-import { getAuthUser } from "@/hooks/useAuth"
-import AdminLayout from "@/layouts/AdminLayout/AdminLayout"
+import { createFileRoute, redirect } from '@tanstack/react-router'
+import type { UserPublic } from '@/client'
+import { getAuthUser } from '@/hooks/useAuth'
+import AdminLayout from '@/layouts/AdminLayout/AdminLayout'
 
-export const Route = createFileRoute("/_admin")({
+export const Route = createFileRoute('/_admin')({
   component: AdminLayout,
   beforeLoad: async () => {
     let user: UserPublic
@@ -11,12 +11,12 @@ export const Route = createFileRoute("/_admin")({
       user = await getAuthUser()
     } catch (_e) {
       throw redirect({
-        to: "/login",
+        to: '/login',
       })
     }
     if (!user.is_superuser) {
       throw redirect({
-        to: "/",
+        to: '/',
       })
     }
   },

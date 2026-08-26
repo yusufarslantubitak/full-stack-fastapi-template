@@ -1,8 +1,8 @@
-import { createFileRoute, redirect } from "@tanstack/react-router"
-import { getAuthUser } from "@/hooks/useAuth"
-import SignUp from "@/pages/SignUp/SignUp"
+import { createFileRoute, redirect } from '@tanstack/react-router'
+import { getAuthUser } from '@/hooks/useAuth'
+import SignUp from '@/pages/SignUp/SignUp'
 
-export const Route = createFileRoute("/signup")({
+export const Route = createFileRoute('/signup')({
   component: SignUp,
   beforeLoad: async () => {
     try {
@@ -11,13 +11,13 @@ export const Route = createFileRoute("/signup")({
       return
     }
     throw redirect({
-      to: "/",
+      to: '/',
     })
   },
   head: () => ({
     meta: [
       {
-        title: "Sign Up - FastAPI Template",
+        title: 'Sign Up - FastAPI Template',
       },
     ],
   }),

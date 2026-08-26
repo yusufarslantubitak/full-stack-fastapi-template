@@ -1,6 +1,6 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { useLocation, useNavigate } from "@tanstack/react-router"
-import { useEffect } from "react"
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useLocation, useNavigate } from '@tanstack/react-router'
+import { useEffect } from 'react'
 
 import {
   type Body_login_login_access_token as AccessToken,
@@ -8,10 +8,10 @@ import {
   type UserPublic,
   type UserRegister,
   UsersService,
-} from "@/client"
-import { useAuthStore } from "@/store/useAuthStore"
-import { handleError } from "@/utils"
-import useCustomToast from "./useCustomToast"
+} from '@/client'
+import { useAuthStore } from '@/store/useAuthStore'
+import { handleError } from '@/utils'
+import useCustomToast from './useCustomToast'
 
 export const getAuthUser = async (): Promise<UserPublic> => {
   const storeUser = useAuthStore.getState().user
@@ -38,10 +38,10 @@ const useAuth = () => {
   const storeUser = useAuthStore((state) => state.user)
   const setUser = useAuthStore((state) => state.setUser)
 
-  const isAuthRoute = ["/login", "/signup"].includes(location.pathname)
+  const isAuthRoute = ['/login', '/signup'].includes(location.pathname)
 
   const { data: user } = useQuery<UserPublic | null, Error>({
-    queryKey: ["currentUser"],
+    queryKey: ['currentUser'],
     queryFn: UsersService.readUserMe,
     enabled: !isAuthRoute,
     initialData: () => useAuthStore.getState().user || undefined,
@@ -57,11 +57,11 @@ const useAuth = () => {
     mutationFn: (data: UserRegister) =>
       UsersService.registerUser({ requestBody: data }),
     onSuccess: () => {
-      navigate({ to: "/login" })
+      navigate({ to: '/login' })
     },
     onError: handleError.bind(showErrorToast),
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["users"] })
+      queryClient.invalidateQueries({ queryKey: ['users'] })
     },
   })
 
@@ -71,13 +71,13 @@ const useAuth = () => {
     })
     const user = await UsersService.readUserMe()
     setUser(user)
-    queryClient.setQueryData(["currentUser"], user)
+    queryClient.setQueryData(['currentUser'], user)
   }
 
   const loginMutation = useMutation({
     mutationFn: login,
     onSuccess: () => {
-      navigate({ to: "/" })
+      navigate({ to: '/' })
     },
     onError: handleError.bind(showErrorToast),
   })
@@ -86,12 +86,12 @@ const useAuth = () => {
     try {
       await LoginService.logout()
     } catch (error) {
-      console.error("Error logging out", error)
+      console.error('Error logging out', error)
     }
     setUser(null)
-    queryClient.setQueryData(["currentUser"], null)
-    localStorage.removeItem("logged_in")
-    navigate({ to: "/login" })
+    queryClient.setQueryData(['currentUser'], null)
+    localStorage.removeItem('logged_in')
+    navigate({ to: '/login' })
   }
 
   return {

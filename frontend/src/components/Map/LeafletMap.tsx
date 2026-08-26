@@ -1,6 +1,6 @@
-import L from "leaflet"
-import { useEffect, useState } from "react"
-import { useTranslation } from "react-i18next"
+import L from 'leaflet'
+import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   Circle,
   MapContainer,
@@ -11,29 +11,29 @@ import {
   Rectangle,
   TileLayer,
   useMap,
-} from "react-leaflet"
-import MarkerClusterGroup from "react-leaflet-cluster"
+} from 'react-leaflet'
+import MarkerClusterGroup from 'react-leaflet-cluster'
 
 // Leaflet CSS imports
-import "leaflet/dist/leaflet.css"
-import "react-leaflet-cluster/dist/assets/MarkerCluster.css"
-import "react-leaflet-cluster/dist/assets/MarkerCluster.Default.css"
+import 'leaflet/dist/leaflet.css'
+import 'react-leaflet-cluster/dist/assets/MarkerCluster.css'
+import 'react-leaflet-cluster/dist/assets/MarkerCluster.Default.css'
 
 // Geoman Drawing tool imports
-import "@geoman-io/leaflet-geoman-free"
-import "@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css"
+import '@geoman-io/leaflet-geoman-free'
+import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css'
 
 // Heatmap layer import (attaches to L globally)
-import "leaflet.heat"
+import 'leaflet.heat'
 
-import markerIcon from "leaflet/dist/images/marker-icon.png"
+import markerIcon from 'leaflet/dist/images/marker-icon.png'
 // Fix Leaflet's default marker icons in Vite
-import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png"
-import markerShadow from "leaflet/dist/images/marker-shadow.png"
+import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png'
+import markerShadow from 'leaflet/dist/images/marker-shadow.png'
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 
 delete (L.Icon.Default.prototype as any)._getIconUrl
 L.Icon.Default.mergeOptions({
@@ -50,43 +50,43 @@ const MAP_CENTER: [number, number] = [37.7749, -122.4194]
 const clusterMarkers = [
   {
     position: [37.7749, -122.4194] as [number, number],
-    titleKey: "map.sfCenter",
+    titleKey: 'map.sfCenter',
   },
   {
     position: [37.7833, -122.4167] as [number, number],
-    titleKey: "map.unionSquare",
+    titleKey: 'map.unionSquare',
   },
   {
     position: [37.7699, -122.4468] as [number, number],
-    titleKey: "map.haightAshbury",
+    titleKey: 'map.haightAshbury',
   },
   {
     position: [37.808, -122.4177] as [number, number],
-    titleKey: "map.fisherman",
+    titleKey: 'map.fisherman',
   },
   {
     position: [37.7608, -122.435] as [number, number],
-    titleKey: "map.castro",
+    titleKey: 'map.castro',
   },
   {
     position: [37.7599, -122.4148] as [number, number],
-    titleKey: "map.mission",
+    titleKey: 'map.mission',
   },
   {
     position: [37.7891, -122.4014] as [number, number],
-    titleKey: "map.financial",
+    titleKey: 'map.financial',
   },
   {
     position: [37.7785, -122.3892] as [number, number],
-    titleKey: "map.oracle",
+    titleKey: 'map.oracle',
   },
   {
     position: [37.7649, -122.3994] as [number, number],
-    titleKey: "map.missionBay",
+    titleKey: 'map.missionBay',
   },
   {
     position: [37.7954, -122.3937] as [number, number],
-    titleKey: "map.ferryBuilding",
+    titleKey: 'map.ferryBuilding',
   },
 ]
 
@@ -124,11 +124,11 @@ export interface DrawnShape {
 }
 
 export const formatCoordinates = (type: string, layer: any): string => {
-  if (type === "Marker") {
+  if (type === 'Marker') {
     const latlng = layer.getLatLng()
     return `Lat: ${latlng.lat.toFixed(5)}, Lng: ${latlng.lng.toFixed(5)}`
   }
-  if (type === "Circle") {
+  if (type === 'Circle') {
     const latlng = layer.getLatLng()
     const radius = layer.getRadius()
     return `Center: [${latlng.lat.toFixed(5)}, ${latlng.lng.toFixed(5)}], Radius: ${radius.toFixed(1)}m`
@@ -139,19 +139,19 @@ export const formatCoordinates = (type: string, layer: any): string => {
   const formatted = Array.isArray(latlngs[0])
     ? (latlngs[0] as any[])
         .map((p: any) => `[${p.lat.toFixed(5)}, ${p.lng.toFixed(5)}]`)
-        .join(", ")
+        .join(', ')
     : (latlngs as any[])
         .map((p: any) => `[${p.lat.toFixed(5)}, ${p.lng.toFixed(5)}]`)
-        .join(", ")
+        .join(', ')
   return `Coords: [${formatted}]`
 }
 
 export const getShapeGeometry = (type: string, layer: any) => {
-  if (type === "Marker") {
+  if (type === 'Marker') {
     const latlng = layer.getLatLng()
     return { position: [latlng.lat, latlng.lng] as [number, number] }
   }
-  if (type === "Circle") {
+  if (type === 'Circle') {
     const latlng = layer.getLatLng()
     const radius = layer.getRadius()
     return {
@@ -159,7 +159,7 @@ export const getShapeGeometry = (type: string, layer: any) => {
       radius: radius,
     }
   }
-  if (type === "Rectangle") {
+  if (type === 'Rectangle') {
     const bounds = layer.getBounds()
     const northEast = bounds.getNorthEast()
     const southWest = bounds.getSouthWest()
@@ -170,14 +170,14 @@ export const getShapeGeometry = (type: string, layer: any) => {
       ] as [[number, number], [number, number]],
     }
   }
-  if (type === "Polygon") {
+  if (type === 'Polygon') {
     const latlngs = layer.getLatLngs()
     const coords = Array.isArray(latlngs[0])
       ? (latlngs[0] as any[]).map((p) => [p.lat, p.lng] as [number, number])
       : (latlngs as any[]).map((p) => [p.lat, p.lng] as [number, number])
     return { positions: coords }
   }
-  if (type === "Line") {
+  if (type === 'Line') {
     const latlngs = layer.getLatLngs()
     const coords = (latlngs as any[]).map(
       (p) => [p.lat, p.lng] as [number, number],
@@ -191,10 +191,10 @@ const isValidTileUrl = (url: string): boolean => {
   if (!url) return false
   // Replace standard Leaflet placeholders {s}, {z}, {x}, {y}, {-y}, {r}
   // with a dummy valid alphanumeric character to pass standard URL parsing.
-  const normalized = url.replace(/\{[a-zA-Z0-9-]+\}/g, "1")
+  const normalized = url.replace(/\{[a-zA-Z0-9-]+\}/g, '1')
   try {
     const parsed = new URL(normalized)
-    return parsed.protocol === "http:" || parsed.protocol === "https:"
+    return parsed.protocol === 'http:' || parsed.protocol === 'https:'
   } catch (_) {
     return false
   }
@@ -203,7 +203,7 @@ const isValidTileUrl = (url: string): boolean => {
 // 1. Geoman Drawing Controls Component
 interface GeomanControlsProps {
   enabled: boolean
-  onDrawCreate: (info: Omit<DrawnShape, "id">) => void
+  onDrawCreate: (info: Omit<DrawnShape, 'id'>) => void
 }
 
 function GeomanControls({ enabled, onDrawCreate }: GeomanControlsProps) {
@@ -215,7 +215,7 @@ function GeomanControls({ enabled, onDrawCreate }: GeomanControlsProps) {
     if (enabled) {
       // Add Geoman drawing and editing controls
       map.pm.addControls({
-        position: "topleft",
+        position: 'topleft',
         drawMarker: true,
         drawCircleMarker: false,
         drawPolyline: true,
@@ -241,11 +241,11 @@ function GeomanControls({ enabled, onDrawCreate }: GeomanControlsProps) {
         layer.remove()
       }
 
-      map.on("pm:create", handleCreate)
+      map.on('pm:create', handleCreate)
 
       return () => {
         map.pm.removeControls()
-        map.off("pm:create", handleCreate)
+        map.off('pm:create', handleCreate)
       }
     }
     map.pm.removeControls()
@@ -272,11 +272,11 @@ function HeatmapLayer({ points }: HeatmapLayerProps) {
       maxZoom: 18,
       max: 1.0,
       gradient: {
-        0.4: "blue",
-        0.6: "cyan",
-        0.7: "lime",
-        0.8: "yellow",
-        1.0: "red",
+        0.4: 'blue',
+        0.6: 'cyan',
+        0.7: 'lime',
+        0.8: 'yellow',
+        1.0: 'red',
       },
     })
 
@@ -297,12 +297,12 @@ export default function LeafletMap() {
   const [showDrawingTools, setShowDrawingTools] = useState(true)
   const [drawnShapes, setDrawnShapes] = useState<DrawnShape[]>([])
   const { t } = useTranslation()
-  const DEFAULT_TILE_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+  const DEFAULT_TILE_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
   const [tileUrl, setTileUrl] = useState(DEFAULT_TILE_URL)
   const [tileUrlInput, setTileUrlInput] = useState(DEFAULT_TILE_URL)
   const [tileUrlError, setTileUrlError] = useState<string | null>(null)
 
-  const handleDrawCreate = (info: Omit<DrawnShape, "id">) => {
+  const handleDrawCreate = (info: Omit<DrawnShape, 'id'>) => {
     setDrawnShapes((prev) => [...prev, { ...info, id: Date.now() }])
   }
 
@@ -313,14 +313,14 @@ export default function LeafletMap() {
   const handleApplyTileUrl = () => {
     const trimmed = tileUrlInput.trim()
     if (!trimmed) {
-      setTileUrlError(t("map.invalidTileUrl"))
+      setTileUrlError(t('map.invalidTileUrl'))
       return
     }
     if (isValidTileUrl(trimmed)) {
       setTileUrl(trimmed)
       setTileUrlError(null)
     } else {
-      setTileUrlError(t("map.invalidTileUrl"))
+      setTileUrlError(t('map.invalidTileUrl'))
     }
   }
 
@@ -336,10 +336,10 @@ export default function LeafletMap() {
       <div className="lg:col-span-1 flex flex-col gap-6 p-6 border rounded-xl bg-card text-card-foreground shadow-sm">
         <div>
           <h3 className="text-lg font-semibold tracking-tight">
-            {t("map.controlsTitle")}
+            {t('map.controlsTitle')}
           </h3>
           <p className="text-xs text-muted-foreground mt-1">
-            {t("map.controlsDesc")}
+            {t('map.controlsDesc')}
           </p>
         </div>
 
@@ -352,7 +352,7 @@ export default function LeafletMap() {
               onChange={(e) => setShowClusters(e.target.checked)}
               className="h-4 w-4 rounded-sm border-primary accent-primary text-primary-foreground focus:ring-primary"
             />
-            <span className="text-sm font-medium">{t("map.clusters")}</span>
+            <span className="text-sm font-medium">{t('map.clusters')}</span>
           </label>
           <label className="flex items-center gap-3 cursor-pointer select-none">
             <input
@@ -361,7 +361,7 @@ export default function LeafletMap() {
               onChange={(e) => setShowHeatmap(e.target.checked)}
               className="h-4 w-4 rounded-sm border-primary accent-primary text-primary-foreground focus:ring-primary"
             />
-            <span className="text-sm font-medium">{t("map.heatmap")}</span>
+            <span className="text-sm font-medium">{t('map.heatmap')}</span>
           </label>
           <label className="flex items-center gap-3 cursor-pointer select-none">
             <input
@@ -370,7 +370,7 @@ export default function LeafletMap() {
               onChange={(e) => setShowDrawingTools(e.target.checked)}
               className="h-4 w-4 rounded-sm border-primary accent-primary text-primary-foreground focus:ring-primary"
             />
-            <span className="text-sm font-medium">{t("map.drawing")}</span>
+            <span className="text-sm font-medium">{t('map.drawing')}</span>
           </label>
         </div>
 
@@ -380,13 +380,13 @@ export default function LeafletMap() {
             htmlFor="tile-url-input"
             className="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
           >
-            {t("map.tileUrlLabel")}
+            {t('map.tileUrlLabel')}
           </Label>
           <div className="flex flex-col gap-2">
             <Input
               id="tile-url-input"
               type="text"
-              placeholder={t("map.tileUrlPlaceholder")}
+              placeholder={t('map.tileUrlPlaceholder')}
               value={tileUrlInput}
               onChange={(e) => {
                 setTileUrlInput(e.target.value)
@@ -395,14 +395,14 @@ export default function LeafletMap() {
                 }
               }}
               onKeyDown={(e) => {
-                if (e.key === "Enter") {
+                if (e.key === 'Enter') {
                   handleApplyTileUrl()
                 }
               }}
               className={
                 tileUrlError
-                  ? "border-destructive focus-visible:ring-destructive/20 animate-shake"
-                  : ""
+                  ? 'border-destructive focus-visible:ring-destructive/20 animate-shake'
+                  : ''
               }
             />
             {tileUrlError && (
@@ -417,7 +417,7 @@ export default function LeafletMap() {
                 size="sm"
                 className="flex-1"
               >
-                {t("map.apply")}
+                {t('map.apply')}
               </Button>
               {tileUrl !== DEFAULT_TILE_URL && (
                 <Button
@@ -426,7 +426,7 @@ export default function LeafletMap() {
                   onClick={handleResetTileUrl}
                   size="sm"
                 >
-                  {t("map.reset")}
+                  {t('map.reset')}
                 </Button>
               )}
             </div>
@@ -437,7 +437,7 @@ export default function LeafletMap() {
         <div className="flex-1 flex flex-col min-h-[150px]">
           <div className="flex justify-between items-center mb-2">
             <h4 className="text-sm font-semibold">
-              {t("map.drawnGeometries")}
+              {t('map.drawnGeometries')}
             </h4>
             {drawnShapes.length > 0 && (
               <button
@@ -445,7 +445,7 @@ export default function LeafletMap() {
                 onClick={clearDrawnShapes}
                 className="text-[10px] text-destructive hover:underline"
               >
-                {t("map.clearList")}
+                {t('map.clearList')}
               </button>
             )}
           </div>
@@ -453,7 +453,7 @@ export default function LeafletMap() {
           <div className="flex-1 overflow-y-auto max-h-[220px] border border-dashed rounded-lg p-2 bg-muted/40">
             {drawnShapes.length === 0 ? (
               <div className="h-full flex items-center justify-center text-center text-xs text-muted-foreground p-4">
-                {t("map.noShapes")}
+                {t('map.noShapes')}
               </div>
             ) : (
               <ul className="flex flex-col gap-2">
@@ -482,7 +482,7 @@ export default function LeafletMap() {
           center={MAP_CENTER}
           zoom={13}
           scrollWheelZoom={true}
-          style={{ height: "100%", width: "100%" }}
+          style={{ height: '100%', width: '100%' }}
         >
           <TileLayer
             key={tileUrl}
@@ -501,7 +501,7 @@ export default function LeafletMap() {
                         {t(marker.titleKey as any)}
                       </h4>
                       <p className="text-xs text-muted-foreground mt-1">
-                        {t("map.coordinate")}: {marker.position[0]},{" "}
+                        {t('map.coordinate')}: {marker.position[0]},{' '}
                         {marker.position[1]}
                       </p>
                     </div>
@@ -523,7 +523,7 @@ export default function LeafletMap() {
           {/* Custom Drawn Shapes (Controlled Mode) */}
           {drawnShapes.map((shape) => {
             const handlers = {
-              "pm:edit": (e: any) => {
+              'pm:edit': (e: any) => {
                 const updatedGeometry = getShapeGeometry(shape.type, e.target)
                 const updatedCoordinates = formatCoordinates(
                   shape.type,
@@ -541,7 +541,7 @@ export default function LeafletMap() {
                   ),
                 )
               },
-              "pm:dragend": (e: any) => {
+              'pm:dragend': (e: any) => {
                 const updatedGeometry = getShapeGeometry(shape.type, e.target)
                 const updatedCoordinates = formatCoordinates(
                   shape.type,
@@ -559,12 +559,12 @@ export default function LeafletMap() {
                   ),
                 )
               },
-              "pm:remove": () => {
+              'pm:remove': () => {
                 setDrawnShapes((prev) => prev.filter((s) => s.id !== shape.id))
               },
             }
 
-            if (shape.type === "Marker" && shape.geometry.position) {
+            if (shape.type === 'Marker' && shape.geometry.position) {
               return (
                 <Marker
                   key={shape.id}
@@ -574,7 +574,7 @@ export default function LeafletMap() {
               )
             }
             if (
-              shape.type === "Circle" &&
+              shape.type === 'Circle' &&
               shape.geometry.center &&
               shape.geometry.radius !== undefined
             ) {
@@ -587,7 +587,7 @@ export default function LeafletMap() {
                 />
               )
             }
-            if (shape.type === "Line" && shape.geometry.positions) {
+            if (shape.type === 'Line' && shape.geometry.positions) {
               return (
                 <Polyline
                   key={shape.id}
@@ -596,7 +596,7 @@ export default function LeafletMap() {
                 />
               )
             }
-            if (shape.type === "Polygon" && shape.geometry.positions) {
+            if (shape.type === 'Polygon' && shape.geometry.positions) {
               return (
                 <Polygon
                   key={shape.id}
@@ -605,7 +605,7 @@ export default function LeafletMap() {
                 />
               )
             }
-            if (shape.type === "Rectangle" && shape.geometry.bounds) {
+            if (shape.type === 'Rectangle' && shape.geometry.bounds) {
               return (
                 <Rectangle
                   key={shape.id}

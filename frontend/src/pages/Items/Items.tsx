@@ -1,12 +1,12 @@
-import { Search } from "lucide-react"
-import { Suspense } from "react"
-import { useTranslation } from "react-i18next"
+import { Search } from 'lucide-react'
+import { Suspense } from 'react'
+import { useTranslation } from 'react-i18next'
 
-import { DataTable } from "@/components/Common/DataTable"
-import PendingItems from "@/components/Pending/PendingItems"
-import AddItem from "@/features/items/components/AddItem"
-import { columns } from "@/features/items/components/columns"
-import { useItemsSuspenseQuery } from "@/features/items/hooks/useItems"
+import { DataTable } from '@/components/Common/DataTable'
+import PendingItems from '@/components/Pending/PendingItems'
+import AddItem from '@/features/items/components/AddItem'
+import { columns } from '@/features/items/components/columns'
+import { useItemsSuspenseQuery } from '@/features/items/hooks/useItems'
 
 function ItemsTableContent() {
   const { t } = useTranslation()
@@ -18,8 +18,8 @@ function ItemsTableContent() {
         <div className="rounded-full bg-muted p-4 mb-4">
           <Search className="h-8 w-8 text-muted-foreground" />
         </div>
-        <h3 className="text-lg font-semibold">{t("items.noItems")}</h3>
-        <p className="text-muted-foreground">{t("items.noItemsDesc")}</p>
+        <h3 className="text-lg font-semibold">{t('items.noItems')}</h3>
+        <p className="text-muted-foreground">{t('items.noItemsDesc')}</p>
       </div>
     )
   }
@@ -43,9 +43,9 @@ export default function Items() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">
-            {t("items.title")}
+            {t('items.title')}
           </h1>
-          <p className="text-muted-foreground">{t("items.description")}</p>
+          <p className="text-muted-foreground">{t('items.description')}</p>
         </div>
         <AddItem />
       </div>

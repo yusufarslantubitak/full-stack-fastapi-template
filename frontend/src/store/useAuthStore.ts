@@ -1,5 +1,5 @@
-import { create } from "zustand"
-import type { UserPublic } from "@/client"
+import { create } from 'zustand'
+import type { UserPublic } from '@/client'
 
 interface AuthState {
   user: UserPublic | null

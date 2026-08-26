@@ -1,18 +1,18 @@
-import { useSuspenseQuery } from "@tanstack/react-query"
-import { Suspense } from "react"
-import { useTranslation } from "react-i18next"
+import { useSuspenseQuery } from '@tanstack/react-query'
+import { Suspense } from 'react'
+import { useTranslation } from 'react-i18next'
 
-import { type UserPublic, UsersService } from "@/client"
-import AddUser from "@/components/Admin/AddUser"
-import { columns, type UserTableData } from "@/components/Admin/columns"
-import { DataTable } from "@/components/Common/DataTable"
-import PendingUsers from "@/components/Pending/PendingUsers"
-import useAuth from "@/hooks/useAuth"
+import { type UserPublic, UsersService } from '@/client'
+import AddUser from '@/components/Admin/AddUser'
+import { columns, type UserTableData } from '@/components/Admin/columns'
+import { DataTable } from '@/components/Common/DataTable'
+import PendingUsers from '@/components/Pending/PendingUsers'
+import useAuth from '@/hooks/useAuth'
 
 function getUsersQueryOptions() {
   return {
     queryFn: () => UsersService.readUsers({ skip: 0, limit: 100 }),
-    queryKey: ["users"],
+    queryKey: ['users'],
   }
 }
 
@@ -44,9 +44,9 @@ export default function Admin() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">
-            {t("admin.title")}
+            {t('admin.title')}
           </h1>
-          <p className="text-muted-foreground">{t("admin.description")}</p>
+          <p className="text-muted-foreground">{t('admin.description')}</p>
         </div>
         <AddUser />
       </div>

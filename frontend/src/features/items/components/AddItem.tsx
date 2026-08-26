@@ -1,11 +1,11 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Plus } from "lucide-react"
-import { useMemo, useState } from "react"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Plus } from 'lucide-react'
+import { useMemo, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
+import { z } from 'zod'
 
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogClose,
@@ -15,7 +15,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from '@/components/ui/dialog'
 import {
   Form,
   FormControl,
@@ -23,10 +23,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { LoadingButton } from "@/components/ui/loading-button"
-import { useCreateItemMutation } from "../hooks/useItems"
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { LoadingButton } from '@/components/ui/loading-button'
+import { useCreateItemMutation } from '../hooks/useItems'
 
 interface FormData {
   title: string
@@ -40,7 +40,7 @@ const AddItem = () => {
   const formSchema = useMemo(
     () =>
       z.object({
-        title: z.string().min(1, { message: t("items.nameRequired") }),
+        title: z.string().min(1, { message: t('items.nameRequired') }),
         description: z.string().optional(),
       }),
     [t],
@@ -48,11 +48,11 @@ const AddItem = () => {
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    mode: "onBlur",
-    criteriaMode: "all",
+    mode: 'onBlur',
+    criteriaMode: 'all',
     defaultValues: {
-      title: "",
-      description: "",
+      title: '',
+      description: '',
     },
   })
 
@@ -72,13 +72,13 @@ const AddItem = () => {
       <DialogTrigger asChild>
         <Button className="my-4">
           <Plus className="mr-2" />
-          {t("items.addItem")}
+          {t('items.addItem')}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>{t("items.addItemTitle")}</DialogTitle>
-          <DialogDescription>{t("items.addItemDesc")}</DialogDescription>
+          <DialogTitle>{t('items.addItemTitle')}</DialogTitle>
+          <DialogDescription>{t('items.addItemDesc')}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -89,12 +89,12 @@ const AddItem = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {t("items.name")}{" "}
+                      {t('items.name')}{' '}
                       <span className="text-destructive">*</span>
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={t("items.name")}
+                        placeholder={t('items.name')}
                         type="text"
                         {...field}
                         required
@@ -110,10 +110,10 @@ const AddItem = () => {
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("items.descriptionLabel")}</FormLabel>
+                    <FormLabel>{t('items.descriptionLabel')}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={t("items.descriptionPlaceholder")}
+                        placeholder={t('items.descriptionPlaceholder')}
                         type="text"
                         {...field}
                       />
@@ -127,11 +127,11 @@ const AddItem = () => {
             <DialogFooter>
               <DialogClose asChild>
                 <Button variant="outline" disabled={mutation.isPending}>
-                  {t("common.cancel")}
+                  {t('common.cancel')}
                 </Button>
               </DialogClose>
               <LoadingButton type="submit" loading={mutation.isPending}>
-                {t("common.save")}
+                {t('common.save')}
               </LoadingButton>
             </DialogFooter>
           </form>

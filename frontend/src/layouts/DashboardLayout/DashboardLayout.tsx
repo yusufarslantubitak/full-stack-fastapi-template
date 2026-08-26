@@ -1,12 +1,12 @@
-import { Outlet } from "@tanstack/react-router"
+import { Outlet } from '@tanstack/react-router'
 
-import { Footer } from "@/components/Common/Footer"
-import AppSidebar from "@/components/Sidebar/AppSidebar"
+import { Footer } from '@/components/Common/Footer'
+import AppSidebar from '@/components/Sidebar/AppSidebar'
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/components/ui/sidebar"
+} from '@/components/ui/sidebar'
 
 export default function DashboardLayout() {
   return (

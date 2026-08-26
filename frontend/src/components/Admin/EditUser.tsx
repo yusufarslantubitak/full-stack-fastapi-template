@@ -1,13 +1,13 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { Pencil } from "lucide-react"
-import { useMemo, useState } from "react"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
-import { type UserPublic, UsersService } from "@/client"
-import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { Pencil } from 'lucide-react'
+import { useMemo, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
+import { z } from 'zod'
+import { type UserPublic, UsersService } from '@/client'
+import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
 import {
   Dialog,
   DialogClose,
@@ -16,8 +16,8 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu"
+} from '@/components/ui/dialog'
+import { DropdownMenuItem } from '@/components/ui/dropdown-menu'
 import {
   Form,
   FormControl,
@@ -25,11 +25,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { LoadingButton } from "@/components/ui/loading-button"
-import useCustomToast from "@/hooks/useCustomToast"
-import { handleError } from "@/utils"
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { LoadingButton } from '@/components/ui/loading-button'
+import useCustomToast from '@/hooks/useCustomToast'
+import { handleError } from '@/utils'
 
 interface FormData {
   email: string
@@ -55,13 +55,13 @@ const EditUser = ({ user, onSuccess }: EditUserProps) => {
     () =>
       z
         .object({
-          email: z.email({ message: t("admin.emailInvalid") }),
+          email: z.email({ message: t('admin.emailInvalid') }),
           full_name: z.string().optional(),
           password: z
             .string()
-            .min(8, { message: t("signup.passwordMin") })
+            .min(8, { message: t('signup.passwordMin') })
             .optional()
-            .or(z.literal("")),
+            .or(z.literal('')),
           confirm_password: z.string().optional(),
           is_superuser: z.boolean().optional(),
           is_active: z.boolean().optional(),
@@ -69,8 +69,8 @@ const EditUser = ({ user, onSuccess }: EditUserProps) => {
         .refine(
           (data) => !data.password || data.password === data.confirm_password,
           {
-            message: t("signup.passwordsMustMatch"),
-            path: ["confirm_password"],
+            message: t('signup.passwordsMustMatch'),
+            path: ['confirm_password'],
           },
         ),
     [t],
@@ -78,8 +78,8 @@ const EditUser = ({ user, onSuccess }: EditUserProps) => {
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    mode: "onBlur",
-    criteriaMode: "all",
+    mode: 'onBlur',
+    criteriaMode: 'all',
     defaultValues: {
       email: user.email,
       full_name: user.full_name ?? undefined,
@@ -92,13 +92,13 @@ const EditUser = ({ user, onSuccess }: EditUserProps) => {
     mutationFn: (data: FormData) =>
       UsersService.updateUser({ userId: user.id, requestBody: data }),
     onSuccess: () => {
-      showSuccessToast(t("admin.successUpdated"))
+      showSuccessToast(t('admin.successUpdated'))
       setIsOpen(false)
       onSuccess()
     },
     onError: handleError.bind(showErrorToast),
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["users"] })
+      queryClient.invalidateQueries({ queryKey: ['users'] })
     },
   })
 
@@ -118,14 +118,14 @@ const EditUser = ({ user, onSuccess }: EditUserProps) => {
         onClick={() => setIsOpen(true)}
       >
         <Pencil />
-        {t("admin.editUser")}
+        {t('admin.editUser')}
       </DropdownMenuItem>
       <DialogContent className="sm:max-w-md">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <DialogHeader>
-              <DialogTitle>{t("admin.editUserTitle")}</DialogTitle>
-              <DialogDescription>{t("admin.editUserDesc")}</DialogDescription>
+              <DialogTitle>{t('admin.editUserTitle')}</DialogTitle>
+              <DialogDescription>{t('admin.editUserDesc')}</DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
               <FormField
@@ -134,12 +134,12 @@ const EditUser = ({ user, onSuccess }: EditUserProps) => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {t("admin.email")}{" "}
+                      {t('admin.email')}{' '}
                       <span className="text-destructive">*</span>
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={t("admin.email")}
+                        placeholder={t('admin.email')}
                         type="email"
                         {...field}
                         required
@@ -155,10 +155,10 @@ const EditUser = ({ user, onSuccess }: EditUserProps) => {
                 name="full_name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("admin.fullName")}</FormLabel>
+                    <FormLabel>{t('admin.fullName')}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={t("admin.fullName")}
+                        placeholder={t('admin.fullName')}
                         type="text"
                         {...field}
                       />
@@ -173,10 +173,10 @@ const EditUser = ({ user, onSuccess }: EditUserProps) => {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("login.password")}</FormLabel>
+                    <FormLabel>{t('login.password')}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={t("login.password")}
+                        placeholder={t('login.password')}
                         type="password"
                         {...field}
                       />
@@ -191,10 +191,10 @@ const EditUser = ({ user, onSuccess }: EditUserProps) => {
                 name="confirm_password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("signup.confirmPassword")}</FormLabel>
+                    <FormLabel>{t('signup.confirmPassword')}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={t("signup.confirmPassword")}
+                        placeholder={t('signup.confirmPassword')}
                         type="password"
                         {...field}
                       />
@@ -216,7 +216,7 @@ const EditUser = ({ user, onSuccess }: EditUserProps) => {
                       />
                     </FormControl>
                     <FormLabel className="font-normal">
-                      {t("admin.isSuperuser")}
+                      {t('admin.isSuperuser')}
                     </FormLabel>
                   </FormItem>
                 )}
@@ -234,7 +234,7 @@ const EditUser = ({ user, onSuccess }: EditUserProps) => {
                       />
                     </FormControl>
                     <FormLabel className="font-normal">
-                      {t("admin.isActive")}
+                      {t('admin.isActive')}
                     </FormLabel>
                   </FormItem>
                 )}
@@ -244,11 +244,11 @@ const EditUser = ({ user, onSuccess }: EditUserProps) => {
             <DialogFooter>
               <DialogClose asChild>
                 <Button variant="outline" disabled={mutation.isPending}>
-                  {t("common.cancel")}
+                  {t('common.cancel')}
                 </Button>
               </DialogClose>
               <LoadingButton type="submit" loading={mutation.isPending}>
-                {t("common.save")}
+                {t('common.save')}
               </LoadingButton>
             </DialogFooter>
           </form>

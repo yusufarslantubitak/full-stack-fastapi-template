@@ -1,13 +1,13 @@
-import { Outlet } from "@tanstack/react-router"
-import { Shield } from "lucide-react"
-import { useTranslation } from "react-i18next"
-import AdminSidebar from "@/components/Sidebar/AdminSidebar"
-import { Badge } from "@/components/ui/badge"
+import { Outlet } from '@tanstack/react-router'
+import { Shield } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import AdminSidebar from '@/components/Sidebar/AdminSidebar'
+import { Badge } from '@/components/ui/badge'
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/components/ui/sidebar"
+} from '@/components/ui/sidebar'
 
 export default function AdminLayout() {
   const { t } = useTranslation()
@@ -23,7 +23,7 @@ export default function AdminLayout() {
             className="gap-1 border-amber-500/50 bg-amber-500/10 text-amber-600 dark:text-amber-400"
           >
             <Shield className="size-3" />
-            {t("sidebar.adminBadge")}
+            {t('sidebar.adminBadge')}
           </Badge>
         </header>
         <main className="flex-1 p-6 md:p-8">

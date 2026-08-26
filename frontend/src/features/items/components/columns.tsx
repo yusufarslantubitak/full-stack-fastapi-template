@@ -1,12 +1,12 @@
-import type { ColumnDef } from "@tanstack/react-table"
-import { Check, Copy } from "lucide-react"
-import { useTranslation } from "react-i18next"
+import type { ColumnDef } from '@tanstack/react-table'
+import { Check, Copy } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
-import type { ItemPublic } from "@/client"
-import { Button } from "@/components/ui/button"
-import { useCopyToClipboard } from "@/hooks/useCopyToClipboard"
-import { cn } from "@/lib/utils"
-import { ItemActionsMenu } from "./ItemActionsMenu"
+import type { ItemPublic } from '@/client'
+import { Button } from '@/components/ui/button'
+import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
+import { cn } from '@/lib/utils'
+import { ItemActionsMenu } from './ItemActionsMenu'
 
 function CopyId({ id }: { id: string }) {
   const [copiedText, copy] = useCopyToClipboard()
@@ -34,28 +34,28 @@ function CopyId({ id }: { id: string }) {
 
 export const columns: ColumnDef<ItemPublic>[] = [
   {
-    accessorKey: "id",
+    accessorKey: 'id',
     header: () => {
       const { t } = useTranslation()
-      return t("items.id")
+      return t('items.id')
     },
     cell: ({ row }) => <CopyId id={row.original.id} />,
   },
   {
-    accessorKey: "title",
+    accessorKey: 'title',
     header: () => {
       const { t } = useTranslation()
-      return t("items.name")
+      return t('items.name')
     },
     cell: ({ row }) => (
       <span className="font-medium">{row.original.title}</span>
     ),
   },
   {
-    accessorKey: "description",
+    accessorKey: 'description',
     header: () => {
       const { t } = useTranslation()
-      return t("items.descriptionLabel")
+      return t('items.descriptionLabel')
     },
     cell: ({ row }) => {
       const { t } = useTranslation()
@@ -63,20 +63,20 @@ export const columns: ColumnDef<ItemPublic>[] = [
       return (
         <span
           className={cn(
-            "max-w-xs truncate block text-muted-foreground",
-            !description && "italic",
+            'max-w-xs truncate block text-muted-foreground',
+            !description && 'italic',
           )}
         >
-          {description || t("items.noDescription")}
+          {description || t('items.noDescription')}
         </span>
       )
     },
   },
   {
-    id: "actions",
+    id: 'actions',
     header: () => {
       const { t } = useTranslation()
-      return <span className="sr-only">{t("admin.actions")}</span>
+      return <span className="sr-only">{t('admin.actions')}</span>
     },
     cell: ({ row }) => (
       <div className="flex justify-end">

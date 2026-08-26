@@ -1,12 +1,12 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { useMemo, useState } from "react"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMemo, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
+import { z } from 'zod'
 
-import { UsersService, type UserUpdateMe } from "@/client"
-import { Button } from "@/components/ui/button"
+import { UsersService, type UserUpdateMe } from '@/client'
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -14,13 +14,13 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { LoadingButton } from "@/components/ui/loading-button"
-import useAuth from "@/hooks/useAuth"
-import useCustomToast from "@/hooks/useCustomToast"
-import { cn } from "@/lib/utils"
-import { handleError } from "@/utils"
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { LoadingButton } from '@/components/ui/loading-button'
+import useAuth from '@/hooks/useAuth'
+import useCustomToast from '@/hooks/useCustomToast'
+import { cn } from '@/lib/utils'
+import { handleError } from '@/utils'
 
 interface FormData {
   full_name?: string
@@ -38,15 +38,15 @@ const UserInformation = () => {
     () =>
       z.object({
         full_name: z.string().max(30).optional(),
-        email: z.email({ message: t("settings.emailInvalid") }),
+        email: z.email({ message: t('settings.emailInvalid') }),
       }),
     [t],
   )
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    mode: "onBlur",
-    criteriaMode: "all",
+    mode: 'onBlur',
+    criteriaMode: 'all',
     defaultValues: {
       full_name: currentUser?.full_name ?? undefined,
       email: currentUser?.email,
@@ -61,7 +61,7 @@ const UserInformation = () => {
     mutationFn: (data: UserUpdateMe) =>
       UsersService.updateUserMe({ requestBody: data }),
     onSuccess: () => {
-      showSuccessToast(t("settings.successProfileUpdated"))
+      showSuccessToast(t('settings.successProfileUpdated'))
       toggleEditMode()
     },
     onError: handleError.bind(showErrorToast),
@@ -92,7 +92,7 @@ const UserInformation = () => {
   return (
     <div className="max-w-md">
       <h3 className="text-lg font-semibold py-4">
-        {t("settings.profileTitle")}
+        {t('settings.profileTitle')}
       </h3>
       <Form {...form}>
         <form
@@ -105,7 +105,7 @@ const UserInformation = () => {
             render={({ field }) =>
               editMode ? (
                 <FormItem>
-                  <FormLabel>{t("settings.fullName")}</FormLabel>
+                  <FormLabel>{t('settings.fullName')}</FormLabel>
                   <FormControl>
                     <Input type="text" {...field} />
                   </FormControl>
@@ -113,14 +113,14 @@ const UserInformation = () => {
                 </FormItem>
               ) : (
                 <FormItem>
-                  <FormLabel>{t("settings.fullName")}</FormLabel>
+                  <FormLabel>{t('settings.fullName')}</FormLabel>
                   <p
                     className={cn(
-                      "py-2 truncate max-w-sm",
-                      !field.value && "text-muted-foreground",
+                      'py-2 truncate max-w-sm',
+                      !field.value && 'text-muted-foreground',
                     )}
                   >
-                    {field.value || "N/A"}
+                    {field.value || 'N/A'}
                   </p>
                 </FormItem>
               )
@@ -133,7 +133,7 @@ const UserInformation = () => {
             render={({ field }) =>
               editMode ? (
                 <FormItem>
-                  <FormLabel>{t("settings.email")}</FormLabel>
+                  <FormLabel>{t('settings.email')}</FormLabel>
                   <FormControl>
                     <Input type="email" {...field} />
                   </FormControl>
@@ -141,7 +141,7 @@ const UserInformation = () => {
                 </FormItem>
               ) : (
                 <FormItem>
-                  <FormLabel>{t("settings.email")}</FormLabel>
+                  <FormLabel>{t('settings.email')}</FormLabel>
                   <p className="py-2 truncate max-w-sm">{field.value}</p>
                 </FormItem>
               )
@@ -156,7 +156,7 @@ const UserInformation = () => {
                   loading={mutation.isPending}
                   disabled={!form.formState.isDirty}
                 >
-                  {t("common.save")}
+                  {t('common.save')}
                 </LoadingButton>
                 <Button
                   type="button"
@@ -164,12 +164,12 @@ const UserInformation = () => {
                   onClick={onCancel}
                   disabled={mutation.isPending}
                 >
-                  {t("common.cancel")}
+                  {t('common.cancel')}
                 </Button>
               </>
             ) : (
               <Button type="button" onClick={toggleEditMode}>
-                {t("common.edit")}
+                {t('common.edit')}
               </Button>
             )}
           </div>

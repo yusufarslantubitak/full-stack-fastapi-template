@@ -1,9 +1,9 @@
-import { Trash2 } from "lucide-react"
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
+import { Trash2 } from 'lucide-react'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogClose,
@@ -12,10 +12,10 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu"
-import { LoadingButton } from "@/components/ui/loading-button"
-import { useDeleteItemMutation } from "../hooks/useItems"
+} from '@/components/ui/dialog'
+import { DropdownMenuItem } from '@/components/ui/dropdown-menu'
+import { LoadingButton } from '@/components/ui/loading-button'
+import { useDeleteItemMutation } from '../hooks/useItems'
 
 interface DeleteItemProps {
   id: string
@@ -46,19 +46,19 @@ const DeleteItem = ({ id, onSuccess }: DeleteItemProps) => {
         onClick={() => setIsOpen(true)}
       >
         <Trash2 />
-        {t("items.deleteItem")}
+        {t('items.deleteItem')}
       </DropdownMenuItem>
       <DialogContent className="sm:max-w-md">
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogHeader>
-            <DialogTitle>{t("items.deleteItemTitle")}</DialogTitle>
-            <DialogDescription>{t("items.deleteItemDesc")}</DialogDescription>
+            <DialogTitle>{t('items.deleteItemTitle')}</DialogTitle>
+            <DialogDescription>{t('items.deleteItemDesc')}</DialogDescription>
           </DialogHeader>
 
           <DialogFooter className="mt-4">
             <DialogClose asChild>
               <Button variant="outline" disabled={mutation.isPending}>
-                {t("common.cancel")}
+                {t('common.cancel')}
               </Button>
             </DialogClose>
             <LoadingButton
@@ -66,7 +66,7 @@ const DeleteItem = ({ id, onSuccess }: DeleteItemProps) => {
               type="submit"
               loading={mutation.isPending}
             >
-              {t("common.delete")}
+              {t('common.delete')}
             </LoadingButton>
           </DialogFooter>
         </form>

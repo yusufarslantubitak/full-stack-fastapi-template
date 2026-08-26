@@ -1,9 +1,9 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
-import { UsersService } from "@/client"
-import { Button } from "@/components/ui/button"
+import { UsersService } from '@/client'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogClose,
@@ -13,11 +13,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { LoadingButton } from "@/components/ui/loading-button"
-import useAuth from "@/hooks/useAuth"
-import useCustomToast from "@/hooks/useCustomToast"
-import { handleError } from "@/utils"
+} from '@/components/ui/dialog'
+import { LoadingButton } from '@/components/ui/loading-button'
+import useAuth from '@/hooks/useAuth'
+import useCustomToast from '@/hooks/useCustomToast'
+import { handleError } from '@/utils'
 
 const DeleteConfirmation = () => {
   const { t } = useTranslation()
@@ -29,12 +29,12 @@ const DeleteConfirmation = () => {
   const mutation = useMutation({
     mutationFn: () => UsersService.deleteUserMe(),
     onSuccess: async () => {
-      showSuccessToast(t("settings.successAccountDeleted"))
+      showSuccessToast(t('settings.successAccountDeleted'))
       await logout()
     },
     onError: handleError.bind(showErrorToast),
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["currentUser"] })
+      queryClient.invalidateQueries({ queryKey: ['currentUser'] })
     },
   })
 
@@ -46,22 +46,22 @@ const DeleteConfirmation = () => {
     <Dialog>
       <DialogTrigger asChild>
         <Button variant="destructive" className="mt-3">
-          {t("settings.dangerTitle")}
+          {t('settings.dangerTitle')}
         </Button>
       </DialogTrigger>
       <DialogContent>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogHeader>
-            <DialogTitle>{t("settings.deleteConfirmTitle")}</DialogTitle>
+            <DialogTitle>{t('settings.deleteConfirmTitle')}</DialogTitle>
             <DialogDescription>
-              {t("settings.deleteConfirmDesc")}
+              {t('settings.deleteConfirmDesc')}
             </DialogDescription>
           </DialogHeader>
 
           <DialogFooter className="mt-4">
             <DialogClose asChild>
               <Button variant="outline" disabled={mutation.isPending}>
-                {t("common.cancel")}
+                {t('common.cancel')}
               </Button>
             </DialogClose>
             <LoadingButton
@@ -69,7 +69,7 @@ const DeleteConfirmation = () => {
               type="submit"
               loading={mutation.isPending}
             >
-              {t("common.delete")}
+              {t('common.delete')}
             </LoadingButton>
           </DialogFooter>
         </form>

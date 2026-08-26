@@ -1,11 +1,11 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useMutation } from "@tanstack/react-query"
-import { useMemo } from "react"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
+import { useMemo } from 'react'
+import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
+import { z } from 'zod'
 
-import { type UpdatePassword, UsersService } from "@/client"
+import { type UpdatePassword, UsersService } from '@/client'
 import {
   Form,
   FormControl,
@@ -13,11 +13,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { LoadingButton } from "@/components/ui/loading-button"
-import { PasswordInput } from "@/components/ui/password-input"
-import useCustomToast from "@/hooks/useCustomToast"
-import { handleError } from "@/utils"
+} from '@/components/ui/form'
+import { LoadingButton } from '@/components/ui/loading-button'
+import { PasswordInput } from '@/components/ui/password-input'
+import useCustomToast from '@/hooks/useCustomToast'
+import { handleError } from '@/utils'
 
 interface FormData {
   current_password: string
@@ -35,30 +35,30 @@ const ChangePassword = () => {
         .object({
           current_password: z
             .string()
-            .min(1, { message: t("settings.currentPasswordRequired") }),
+            .min(1, { message: t('settings.currentPasswordRequired') }),
           new_password: z
             .string()
-            .min(1, { message: t("settings.newPasswordRequired") })
-            .min(8, { message: t("settings.newPasswordMin") }),
+            .min(1, { message: t('settings.newPasswordRequired') })
+            .min(8, { message: t('settings.newPasswordMin') }),
           confirm_password: z
             .string()
-            .min(1, { message: t("settings.confirmNewPasswordRequired") }),
+            .min(1, { message: t('settings.confirmNewPasswordRequired') }),
         })
         .refine((data) => data.new_password === data.confirm_password, {
-          message: t("signup.passwordsMustMatch"),
-          path: ["confirm_password"],
+          message: t('signup.passwordsMustMatch'),
+          path: ['confirm_password'],
         }),
     [t],
   )
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    mode: "onSubmit",
-    criteriaMode: "all",
+    mode: 'onSubmit',
+    criteriaMode: 'all',
     defaultValues: {
-      current_password: "",
-      new_password: "",
-      confirm_password: "",
+      current_password: '',
+      new_password: '',
+      confirm_password: '',
     },
   })
 
@@ -66,7 +66,7 @@ const ChangePassword = () => {
     mutationFn: (data: UpdatePassword) =>
       UsersService.updatePasswordMe({ requestBody: data }),
     onSuccess: () => {
-      showSuccessToast(t("settings.successPasswordUpdated"))
+      showSuccessToast(t('settings.successPasswordUpdated'))
       form.reset()
     },
     onError: handleError.bind(showErrorToast),
@@ -79,7 +79,7 @@ const ChangePassword = () => {
   return (
     <div className="max-w-md">
       <h3 className="text-lg font-semibold py-4">
-        {t("settings.passwordTitle")}
+        {t('settings.passwordTitle')}
       </h3>
       <Form {...form}>
         <form
@@ -91,7 +91,7 @@ const ChangePassword = () => {
             name="current_password"
             render={({ field, fieldState }) => (
               <FormItem>
-                <FormLabel>{t("settings.currentPassword")}</FormLabel>
+                <FormLabel>{t('settings.currentPassword')}</FormLabel>
                 <FormControl>
                   <PasswordInput
                     data-testid="current-password-input"
@@ -110,7 +110,7 @@ const ChangePassword = () => {
             name="new_password"
             render={({ field, fieldState }) => (
               <FormItem>
-                <FormLabel>{t("settings.newPassword")}</FormLabel>
+                <FormLabel>{t('settings.newPassword')}</FormLabel>
                 <FormControl>
                   <PasswordInput
                     data-testid="new-password-input"
@@ -129,7 +129,7 @@ const ChangePassword = () => {
             name="confirm_password"
             render={({ field, fieldState }) => (
               <FormItem>
-                <FormLabel>{t("settings.confirmNewPassword")}</FormLabel>
+                <FormLabel>{t('settings.confirmNewPassword')}</FormLabel>
                 <FormControl>
                   <PasswordInput
                     data-testid="confirm-password-input"
@@ -148,7 +148,7 @@ const ChangePassword = () => {
             loading={mutation.isPending}
             className="self-start"
           >
-            {t("settings.passwordTitle")}
+            {t('settings.passwordTitle')}
           </LoadingButton>
         </form>
       </Form>

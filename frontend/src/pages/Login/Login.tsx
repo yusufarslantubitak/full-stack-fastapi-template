@@ -1,12 +1,12 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Link as RouterLink } from "@tanstack/react-router"
-import { useMemo } from "react"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Link as RouterLink } from '@tanstack/react-router'
+import { useMemo } from 'react'
+import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
+import { z } from 'zod'
 
-import type { Body_login_login_access_token as AccessToken } from "@/client"
-import { AuthLayout } from "@/components/Common/AuthLayout"
+import type { Body_login_login_access_token as AccessToken } from '@/client'
+import { AuthLayout } from '@/components/Common/AuthLayout'
 import {
   Form,
   FormControl,
@@ -14,11 +14,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { LoadingButton } from "@/components/ui/loading-button"
-import { PasswordInput } from "@/components/ui/password-input"
-import useAuth from "@/hooks/useAuth"
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { LoadingButton } from '@/components/ui/loading-button'
+import { PasswordInput } from '@/components/ui/password-input'
+import useAuth from '@/hooks/useAuth'
 
 type FormData = AccessToken
 
@@ -29,22 +29,22 @@ export default function Login() {
   const formSchema = useMemo(
     () =>
       z.object({
-        username: z.email({ message: t("admin.emailInvalid") }),
+        username: z.email({ message: t('admin.emailInvalid') }),
         password: z
           .string()
-          .min(1, { message: t("login.passwordRequired") })
-          .min(8, { message: t("login.passwordMin") }),
+          .min(1, { message: t('login.passwordRequired') })
+          .min(8, { message: t('login.passwordMin') }),
       }) satisfies z.ZodType<AccessToken>,
     [t],
   )
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    mode: "onBlur",
-    criteriaMode: "all",
+    mode: 'onBlur',
+    criteriaMode: 'all',
     defaultValues: {
-      username: "",
-      password: "",
+      username: '',
+      password: '',
     },
   })
 
@@ -61,7 +61,7 @@ export default function Login() {
           className="flex flex-col gap-6"
         >
           <div className="flex flex-col items-center gap-2 text-center">
-            <h1 className="text-2xl font-bold">{t("login.title")}</h1>
+            <h1 className="text-2xl font-bold">{t('login.title')}</h1>
           </div>
 
           <div className="grid gap-4">
@@ -70,7 +70,7 @@ export default function Login() {
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("login.email")}</FormLabel>
+                  <FormLabel>{t('login.email')}</FormLabel>
                   <FormControl>
                     <Input
                       data-testid="email-input"
@@ -90,12 +90,12 @@ export default function Login() {
               render={({ field }) => (
                 <FormItem>
                   <div className="flex items-center">
-                    <FormLabel>{t("login.password")}</FormLabel>
+                    <FormLabel>{t('login.password')}</FormLabel>
                   </div>
                   <FormControl>
                     <PasswordInput
                       data-testid="password-input"
-                      placeholder={t("login.password")}
+                      placeholder={t('login.password')}
                       {...field}
                     />
                   </FormControl>
@@ -105,14 +105,14 @@ export default function Login() {
             />
 
             <LoadingButton type="submit" loading={loginMutation.isPending}>
-              {t("login.submit")}
+              {t('login.submit')}
             </LoadingButton>
           </div>
 
           <div className="text-center text-sm">
-            {t("login.noAccount")}{" "}
+            {t('login.noAccount')}{' '}
             <RouterLink to="/signup" className="underline underline-offset-4">
-              {t("login.signUp")}
+              {t('login.signUp')}
             </RouterLink>
           </div>
         </form>

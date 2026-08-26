@@ -1,15 +1,15 @@
-import { useTranslation } from "react-i18next"
+import { useTranslation } from 'react-i18next'
 
-import ChangePassword from "@/components/UserSettings/ChangePassword"
-import DeleteAccount from "@/components/UserSettings/DeleteAccount"
-import UserInformation from "@/components/UserSettings/UserInformation"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import useAuth from "@/hooks/useAuth"
+import ChangePassword from '@/components/UserSettings/ChangePassword'
+import DeleteAccount from '@/components/UserSettings/DeleteAccount'
+import UserInformation from '@/components/UserSettings/UserInformation'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import useAuth from '@/hooks/useAuth'
 
 const tabsConfig = [
-  { value: "my-profile", title: "My profile", component: UserInformation },
-  { value: "password", title: "Password", component: ChangePassword },
-  { value: "danger-zone", title: "Danger zone", component: DeleteAccount },
+  { value: 'my-profile', title: 'My profile', component: UserInformation },
+  { value: 'password', title: 'Password', component: ChangePassword },
+  { value: 'danger-zone', title: 'Danger zone', component: DeleteAccount },
 ]
 
 export default function UserSettings() {
@@ -25,14 +25,14 @@ export default function UserSettings() {
 
   const getTabTitle = (value: string) => {
     switch (value) {
-      case "my-profile":
-        return t("settings.profile")
-      case "password":
-        return t("settings.password")
-      case "danger-zone":
-        return t("settings.dangerZone")
+      case 'my-profile':
+        return t('settings.profile')
+      case 'password':
+        return t('settings.password')
+      case 'danger-zone':
+        return t('settings.dangerZone')
       default:
-        return ""
+        return ''
     }
   }
 
@@ -40,9 +40,9 @@ export default function UserSettings() {
     <div className="flex flex-col gap-6">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">
-          {t("settings.title")}
+          {t('settings.title')}
         </h1>
-        <p className="text-muted-foreground">{t("settings.description")}</p>
+        <p className="text-muted-foreground">{t('settings.description')}</p>
       </div>
 
       <Tabs defaultValue="my-profile">

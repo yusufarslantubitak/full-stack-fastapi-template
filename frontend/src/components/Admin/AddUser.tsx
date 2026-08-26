@@ -1,13 +1,13 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { Plus } from "lucide-react"
-import { useMemo, useState } from "react"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
-import { type UserCreate, UsersService } from "@/client"
-import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { Plus } from 'lucide-react'
+import { useMemo, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
+import { z } from 'zod'
+import { type UserCreate, UsersService } from '@/client'
+import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
 import {
   Dialog,
   DialogClose,
@@ -17,7 +17,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from '@/components/ui/dialog'
 import {
   Form,
   FormControl,
@@ -25,11 +25,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { LoadingButton } from "@/components/ui/loading-button"
-import useCustomToast from "@/hooks/useCustomToast"
-import { handleError } from "@/utils"
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { LoadingButton } from '@/components/ui/loading-button'
+import useCustomToast from '@/hooks/useCustomToast'
+import { handleError } from '@/utils'
 
 interface FormData {
   email: string
@@ -50,34 +50,34 @@ const AddUser = () => {
     () =>
       z
         .object({
-          email: z.email({ message: t("admin.emailInvalid") }),
+          email: z.email({ message: t('admin.emailInvalid') }),
           full_name: z.string().optional(),
           password: z
             .string()
-            .min(1, { message: t("login.passwordRequired") })
-            .min(8, { message: t("signup.passwordMin") }),
+            .min(1, { message: t('login.passwordRequired') })
+            .min(8, { message: t('signup.passwordMin') }),
           confirm_password: z
             .string()
-            .min(1, { message: t("admin.passwordConfirmRequired") }),
+            .min(1, { message: t('admin.passwordConfirmRequired') }),
           is_superuser: z.boolean(),
           is_active: z.boolean(),
         })
         .refine((data) => data.password === data.confirm_password, {
-          message: t("signup.passwordsMustMatch"),
-          path: ["confirm_password"],
+          message: t('signup.passwordsMustMatch'),
+          path: ['confirm_password'],
         }),
     [t],
   )
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    mode: "onBlur",
-    criteriaMode: "all",
+    mode: 'onBlur',
+    criteriaMode: 'all',
     defaultValues: {
-      email: "",
-      full_name: "",
-      password: "",
-      confirm_password: "",
+      email: '',
+      full_name: '',
+      password: '',
+      confirm_password: '',
       is_superuser: false,
       is_active: false,
     },
@@ -87,13 +87,13 @@ const AddUser = () => {
     mutationFn: (data: UserCreate) =>
       UsersService.createUser({ requestBody: data }),
     onSuccess: () => {
-      showSuccessToast(t("admin.successCreated"))
+      showSuccessToast(t('admin.successCreated'))
       form.reset()
       setIsOpen(false)
     },
     onError: handleError.bind(showErrorToast),
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["users"] })
+      queryClient.invalidateQueries({ queryKey: ['users'] })
     },
   })
 
@@ -106,13 +106,13 @@ const AddUser = () => {
       <DialogTrigger asChild>
         <Button className="my-4">
           <Plus className="mr-2" />
-          {t("admin.addUser")}
+          {t('admin.addUser')}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>{t("admin.addUserTitle")}</DialogTitle>
-          <DialogDescription>{t("admin.addUserDesc")}</DialogDescription>
+          <DialogTitle>{t('admin.addUserTitle')}</DialogTitle>
+          <DialogDescription>{t('admin.addUserDesc')}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -123,12 +123,12 @@ const AddUser = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {t("admin.email")}{" "}
+                      {t('admin.email')}{' '}
                       <span className="text-destructive">*</span>
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={t("admin.email")}
+                        placeholder={t('admin.email')}
                         type="email"
                         {...field}
                         required
@@ -144,10 +144,10 @@ const AddUser = () => {
                 name="full_name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("admin.fullName")}</FormLabel>
+                    <FormLabel>{t('admin.fullName')}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={t("admin.fullName")}
+                        placeholder={t('admin.fullName')}
                         type="text"
                         {...field}
                       />
@@ -163,12 +163,12 @@ const AddUser = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {t("login.password")}{" "}
+                      {t('login.password')}{' '}
                       <span className="text-destructive">*</span>
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={t("login.password")}
+                        placeholder={t('login.password')}
                         type="password"
                         {...field}
                         required
@@ -185,12 +185,12 @@ const AddUser = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {t("signup.confirmPassword")}{" "}
+                      {t('signup.confirmPassword')}{' '}
                       <span className="text-destructive">*</span>
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={t("signup.confirmPassword")}
+                        placeholder={t('signup.confirmPassword')}
                         type="password"
                         {...field}
                         required
@@ -213,7 +213,7 @@ const AddUser = () => {
                       />
                     </FormControl>
                     <FormLabel className="font-normal">
-                      {t("admin.isSuperuser")}
+                      {t('admin.isSuperuser')}
                     </FormLabel>
                   </FormItem>
                 )}
@@ -231,7 +231,7 @@ const AddUser = () => {
                       />
                     </FormControl>
                     <FormLabel className="font-normal">
-                      {t("admin.isActive")}
+                      {t('admin.isActive')}
                     </FormLabel>
                   </FormItem>
                 )}
@@ -241,11 +241,11 @@ const AddUser = () => {
             <DialogFooter>
               <DialogClose asChild>
                 <Button variant="outline" disabled={mutation.isPending}>
-                  {t("common.cancel")}
+                  {t('common.cancel')}
                 </Button>
               </DialogClose>
               <LoadingButton type="submit" loading={mutation.isPending}>
-                {t("common.save")}
+                {t('common.save')}
               </LoadingButton>
             </DialogFooter>
           </form>

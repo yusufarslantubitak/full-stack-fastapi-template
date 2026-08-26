@@ -1,10 +1,10 @@
-import { Link as RouterLink, useRouterState } from "@tanstack/react-router"
-import { ArrowLeft, Shield, Users } from "lucide-react"
-import { useTranslation } from "react-i18next"
+import { Link as RouterLink, useRouterState } from '@tanstack/react-router'
+import { ArrowLeft, Shield, Users } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
-import { SidebarAppearance } from "@/components/Common/Appearance"
-import { Logo } from "@/components/Common/Logo"
-import { User } from "@/components/Sidebar/User"
+import { SidebarAppearance } from '@/components/Common/Appearance'
+import { Logo } from '@/components/Common/Logo'
+import { User } from '@/components/Sidebar/User'
 import {
   Sidebar,
   SidebarContent,
@@ -18,8 +18,8 @@ import {
   SidebarMenuItem,
   SidebarSeparator,
   useSidebar,
-} from "@/components/ui/sidebar"
-import useAuth from "@/hooks/useAuth"
+} from '@/components/ui/sidebar'
+import useAuth from '@/hooks/useAuth'
 
 export function AdminSidebar() {
   const { user: currentUser } = useAuth()
@@ -43,19 +43,19 @@ export function AdminSidebar() {
         <SidebarGroup>
           <SidebarGroupLabel>
             <Shield className="mr-2 size-3.5" />
-            {t("sidebar.adminPanel")}
+            {t('sidebar.adminPanel')}
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton
-                  tooltip={t("sidebar.admin")}
-                  isActive={currentPath === "/admin"}
+                  tooltip={t('sidebar.admin')}
+                  isActive={currentPath === '/admin'}
                   asChild
                 >
                   <RouterLink to="/admin" onClick={handleMenuClick}>
                     <Users />
-                    <span>{t("sidebar.admin")}</span>
+                    <span>{t('sidebar.admin')}</span>
                   </RouterLink>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -67,10 +67,10 @@ export function AdminSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton tooltip={t("sidebar.backToApp")} asChild>
+                <SidebarMenuButton tooltip={t('sidebar.backToApp')} asChild>
                   <RouterLink to="/" onClick={handleMenuClick}>
                     <ArrowLeft />
-                    <span>{t("sidebar.backToApp")}</span>
+                    <span>{t('sidebar.backToApp')}</span>
                   </RouterLink>
                 </SidebarMenuButton>
               </SidebarMenuItem>

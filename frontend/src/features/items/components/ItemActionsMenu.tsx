@@ -1,15 +1,15 @@
-import { EllipsisVertical } from "lucide-react"
-import { useState } from "react"
+import { EllipsisVertical } from 'lucide-react'
+import { useState } from 'react'
 
-import type { ItemPublic } from "@/client"
-import { Button } from "@/components/ui/button"
+import type { ItemPublic } from '@/client'
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import DeleteItem from "./DeleteItem"
-import EditItem from "./EditItem"
+} from '@/components/ui/dropdown-menu'
+import DeleteItem from './DeleteItem'
+import EditItem from './EditItem'
 
 interface ItemActionsMenuProps {
   item: ItemPublic

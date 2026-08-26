@@ -1,10 +1,10 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Link as RouterLink } from "@tanstack/react-router"
-import { useMemo } from "react"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
-import { AuthLayout } from "@/components/Common/AuthLayout"
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Link as RouterLink } from '@tanstack/react-router'
+import { useMemo } from 'react'
+import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
+import { z } from 'zod'
+import { AuthLayout } from '@/components/Common/AuthLayout'
 import {
   Form,
   FormControl,
@@ -12,11 +12,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { LoadingButton } from "@/components/ui/loading-button"
-import { PasswordInput } from "@/components/ui/password-input"
-import useAuth from "@/hooks/useAuth"
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { LoadingButton } from '@/components/ui/loading-button'
+import { PasswordInput } from '@/components/ui/password-input'
+import useAuth from '@/hooks/useAuth'
 
 interface FormData {
   email: string
@@ -33,34 +33,34 @@ export default function SignUp() {
     () =>
       z
         .object({
-          email: z.email({ message: t("admin.emailInvalid") }),
+          email: z.email({ message: t('admin.emailInvalid') }),
           full_name: z
             .string()
-            .min(1, { message: t("signup.fullNameRequired") }),
+            .min(1, { message: t('signup.fullNameRequired') }),
           password: z
             .string()
-            .min(1, { message: t("signup.passwordRequired") })
-            .min(8, { message: t("signup.passwordMin") }),
+            .min(1, { message: t('signup.passwordRequired') })
+            .min(8, { message: t('signup.passwordMin') }),
           confirm_password: z
             .string()
-            .min(1, { message: t("signup.confirmPasswordRequired") }),
+            .min(1, { message: t('signup.confirmPasswordRequired') }),
         })
         .refine((data) => data.password === data.confirm_password, {
-          message: t("signup.passwordsMustMatch"),
-          path: ["confirm_password"],
+          message: t('signup.passwordsMustMatch'),
+          path: ['confirm_password'],
         }),
     [t],
   )
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    mode: "onBlur",
-    criteriaMode: "all",
+    mode: 'onBlur',
+    criteriaMode: 'all',
     defaultValues: {
-      email: "",
-      full_name: "",
-      password: "",
-      confirm_password: "",
+      email: '',
+      full_name: '',
+      password: '',
+      confirm_password: '',
     },
   })
 
@@ -80,7 +80,7 @@ export default function SignUp() {
           className="flex flex-col gap-6"
         >
           <div className="flex flex-col items-center gap-2 text-center">
-            <h1 className="text-2xl font-bold">{t("signup.title")}</h1>
+            <h1 className="text-2xl font-bold">{t('signup.title')}</h1>
           </div>
 
           <div className="grid gap-4">
@@ -89,11 +89,11 @@ export default function SignUp() {
               name="full_name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("signup.fullName")}</FormLabel>
+                  <FormLabel>{t('signup.fullName')}</FormLabel>
                   <FormControl>
                     <Input
                       data-testid="full-name-input"
-                      placeholder={t("signup.fullNamePlaceholder")}
+                      placeholder={t('signup.fullNamePlaceholder')}
                       type="text"
                       {...field}
                     />
@@ -108,7 +108,7 @@ export default function SignUp() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("signup.email")}</FormLabel>
+                  <FormLabel>{t('signup.email')}</FormLabel>
                   <FormControl>
                     <Input
                       data-testid="email-input"
@@ -127,11 +127,11 @@ export default function SignUp() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("signup.password")}</FormLabel>
+                  <FormLabel>{t('signup.password')}</FormLabel>
                   <FormControl>
                     <PasswordInput
                       data-testid="password-input"
-                      placeholder={t("signup.password")}
+                      placeholder={t('signup.password')}
                       {...field}
                     />
                   </FormControl>
@@ -145,11 +145,11 @@ export default function SignUp() {
               name="confirm_password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("signup.confirmPassword")}</FormLabel>
+                  <FormLabel>{t('signup.confirmPassword')}</FormLabel>
                   <FormControl>
                     <PasswordInput
                       data-testid="confirm-password-input"
-                      placeholder={t("signup.confirmPassword")}
+                      placeholder={t('signup.confirmPassword')}
                       {...field}
                     />
                   </FormControl>
@@ -163,14 +163,14 @@ export default function SignUp() {
               className="w-full"
               loading={signUpMutation.isPending}
             >
-              {t("signup.submit")}
+              {t('signup.submit')}
             </LoadingButton>
           </div>
 
           <div className="text-center text-sm">
-            {t("signup.alreadyAccount")}{" "}
+            {t('signup.alreadyAccount')}{' '}
             <RouterLink to="/login" className="underline underline-offset-4">
-              {t("signup.logIn")}
+              {t('signup.logIn')}
             </RouterLink>
           </div>
         </form>

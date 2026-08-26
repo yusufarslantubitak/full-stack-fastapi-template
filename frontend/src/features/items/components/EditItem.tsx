@@ -1,12 +1,12 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Pencil } from "lucide-react"
-import { useMemo, useState } from "react"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Pencil } from 'lucide-react'
+import { useMemo, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
+import { z } from 'zod'
 
-import type { ItemPublic } from "@/client"
-import { Button } from "@/components/ui/button"
+import type { ItemPublic } from '@/client'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogClose,
@@ -15,8 +15,8 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu"
+} from '@/components/ui/dialog'
+import { DropdownMenuItem } from '@/components/ui/dropdown-menu'
 import {
   Form,
   FormControl,
@@ -24,10 +24,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { LoadingButton } from "@/components/ui/loading-button"
-import { useUpdateItemMutation } from "../hooks/useItems"
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { LoadingButton } from '@/components/ui/loading-button'
+import { useUpdateItemMutation } from '../hooks/useItems'
 
 interface FormData {
   title: string
@@ -46,7 +46,7 @@ const EditItem = ({ item, onSuccess }: EditItemProps) => {
   const formSchema = useMemo(
     () =>
       z.object({
-        title: z.string().min(1, { message: t("items.nameRequired") }),
+        title: z.string().min(1, { message: t('items.nameRequired') }),
         description: z.string().optional(),
       }),
     [t],
@@ -54,8 +54,8 @@ const EditItem = ({ item, onSuccess }: EditItemProps) => {
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    mode: "onBlur",
-    criteriaMode: "all",
+    mode: 'onBlur',
+    criteriaMode: 'all',
     defaultValues: {
       title: item.title,
       description: item.description ?? undefined,
@@ -80,14 +80,14 @@ const EditItem = ({ item, onSuccess }: EditItemProps) => {
         onClick={() => setIsOpen(true)}
       >
         <Pencil />
-        {t("items.editItem")}
+        {t('items.editItem')}
       </DropdownMenuItem>
       <DialogContent className="sm:max-w-md">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <DialogHeader>
-              <DialogTitle>{t("items.editItemTitle")}</DialogTitle>
-              <DialogDescription>{t("items.editItemDesc")}</DialogDescription>
+              <DialogTitle>{t('items.editItemTitle')}</DialogTitle>
+              <DialogDescription>{t('items.editItemDesc')}</DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
               <FormField
@@ -96,12 +96,12 @@ const EditItem = ({ item, onSuccess }: EditItemProps) => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {t("items.name")}{" "}
+                      {t('items.name')}{' '}
                       <span className="text-destructive">*</span>
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={t("items.name")}
+                        placeholder={t('items.name')}
                         type="text"
                         {...field}
                       />
@@ -116,10 +116,10 @@ const EditItem = ({ item, onSuccess }: EditItemProps) => {
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("items.descriptionLabel")}</FormLabel>
+                    <FormLabel>{t('items.descriptionLabel')}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={t("items.descriptionPlaceholder")}
+                        placeholder={t('items.descriptionPlaceholder')}
                         type="text"
                         {...field}
                       />
@@ -133,11 +133,11 @@ const EditItem = ({ item, onSuccess }: EditItemProps) => {
             <DialogFooter>
               <DialogClose asChild>
                 <Button variant="outline" disabled={mutation.isPending}>
-                  {t("common.cancel")}
+                  {t('common.cancel')}
                 </Button>
               </DialogClose>
               <LoadingButton type="submit" loading={mutation.isPending}>
-                {t("common.save")}
+                {t('common.save')}
               </LoadingButton>
             </DialogFooter>
           </form>

@@ -1,18 +1,18 @@
-import { Monitor, Moon, Sun } from "lucide-react"
+import { Monitor, Moon, Sun } from 'lucide-react'
 
-import { type Theme, useTheme } from "@/components/theme-provider"
-import { Button } from "@/components/ui/button"
+import { type Theme, useTheme } from '@/components/theme-provider'
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from '@/components/ui/dropdown-menu'
 import {
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@/components/ui/sidebar"
+} from '@/components/ui/sidebar'
 
 type LucideIcon = React.FC<React.SVGProps<SVGSVGElement>>
 
@@ -38,25 +38,25 @@ export const SidebarAppearance = () => {
           </SidebarMenuButton>
         </DropdownMenuTrigger>
         <DropdownMenuContent
-          side={isMobile ? "top" : "right"}
+          side={isMobile ? 'top' : 'right'}
           align="end"
           className="w-(--radix-dropdown-menu-trigger-width) min-w-56"
         >
           <DropdownMenuItem
             data-testid="light-mode"
-            onClick={() => setTheme("light")}
+            onClick={() => setTheme('light')}
           >
             <Sun className="mr-2 h-4 w-4" />
             Light
           </DropdownMenuItem>
           <DropdownMenuItem
             data-testid="dark-mode"
-            onClick={() => setTheme("dark")}
+            onClick={() => setTheme('dark')}
           >
             <Moon className="mr-2 h-4 w-4" />
             Dark
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setTheme("system")}>
+          <DropdownMenuItem onClick={() => setTheme('system')}>
             <Monitor className="mr-2 h-4 w-4" />
             System
           </DropdownMenuItem>
@@ -82,19 +82,19 @@ export const Appearance = () => {
         <DropdownMenuContent align="end">
           <DropdownMenuItem
             data-testid="light-mode"
-            onClick={() => setTheme("light")}
+            onClick={() => setTheme('light')}
           >
             <Sun className="mr-2 h-4 w-4" />
             Light
           </DropdownMenuItem>
           <DropdownMenuItem
             data-testid="dark-mode"
-            onClick={() => setTheme("dark")}
+            onClick={() => setTheme('dark')}
           >
             <Moon className="mr-2 h-4 w-4" />
             Dark
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setTheme("system")}>
+          <DropdownMenuItem onClick={() => setTheme('system')}>
             <Monitor className="mr-2 h-4 w-4" />
             System
           </DropdownMenuItem>
