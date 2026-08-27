@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-import { UsersService } from '@/client'
+import { usersDeleteUser } from '@/client'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -32,12 +32,12 @@ const DeleteUser = ({ id, onSuccess }: DeleteUserProps) => {
   const { showSuccessToast, showErrorToast } = useCustomToast()
   const { handleSubmit } = useForm()
 
-  const deleteUser = async (id: string) => {
-    await UsersService.deleteUser({ userId: id })
+  const deleteUserAction = async (id: string) => {
+    await usersDeleteUser({ path: { user_id: id } })
   }
 
   const mutation = useMutation({
-    mutationFn: deleteUser,
+    mutationFn: deleteUserAction,
     onSuccess: () => {
       showSuccessToast(t('admin.successDeleted'))
       setIsOpen(false)

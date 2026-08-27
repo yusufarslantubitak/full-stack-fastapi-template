@@ -11,7 +11,8 @@
     "lint:fix": "biome check --write --unsafe --no-errors-on-unmatched --files-ignore-unknown=true ./",
     "format": "biome format --write ./",
     "preview": "vite preview",
-    "generate-client": "openapi-ts"
+    "download:openapi": "node ./scripts/download-openapi.mjs",
+    "generate-client": "node ./scripts/download-openapi.mjs && openapi-ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",

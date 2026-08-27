@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
 
-import { UsersService, type UserUpdateMe } from '@/client'
+import { type UserUpdateMe, usersUpdateUserMe } from '@/client'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -58,8 +58,7 @@ const UserInformation = () => {
   }
 
   const mutation = useMutation({
-    mutationFn: (data: UserUpdateMe) =>
-      UsersService.updateUserMe({ requestBody: data }),
+    mutationFn: (data: UserUpdateMe) => usersUpdateUserMe({ body: data }),
     onSuccess: () => {
       showSuccessToast(t('settings.successProfileUpdated'))
       toggleEditMode()

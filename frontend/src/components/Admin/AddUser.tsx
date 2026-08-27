@@ -5,7 +5,7 @@ import { useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
-import { type UserCreate, UsersService } from '@/client'
+import { type UserCreate, usersCreateUser } from '@/client'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import {
@@ -44,7 +44,7 @@ const AddUser = () => {
   const { t } = useTranslation()
   const [isOpen, setIsOpen] = useState(false)
   const queryClient = useQueryClient()
-  const { showSuccessToast, showErrorToast } = useCustomToast()
+  const { showErrorToast } = useCustomToast()
 
   const formSchema = useMemo(
     () =>
@@ -84,10 +84,8 @@ const AddUser = () => {
   })
 
   const mutation = useMutation({
-    mutationFn: (data: UserCreate) =>
-      UsersService.createUser({ requestBody: data }),
+    mutationFn: (data: UserCreate) => usersCreateUser({ body: data }),
     onSuccess: () => {
-      showSuccessToast(t('admin.successCreated'))
       form.reset()
       setIsOpen(false)
     },

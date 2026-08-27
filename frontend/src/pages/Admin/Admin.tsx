@@ -2,7 +2,7 @@ import { useSuspenseQuery } from '@tanstack/react-query'
 import { Suspense } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { type UserPublic, UsersService } from '@/client'
+import { type UserPublic, usersReadUsers } from '@/client'
 import AddUser from '@/components/Admin/AddUser'
 import { columns, type UserTableData } from '@/components/Admin/columns'
 import { DataTable } from '@/components/Common/DataTable'
@@ -11,7 +11,7 @@ import useAuth from '@/hooks/useAuth'
 
 function getUsersQueryOptions() {
   return {
-    queryFn: () => UsersService.readUsers({ skip: 0, limit: 100 }),
+    queryFn: () => usersReadUsers({ query: { skip: 0, limit: 100 } }),
     queryKey: ['users'],
   }
 }

@@ -3,11 +3,13 @@ import { useLocation, useNavigate } from '@tanstack/react-router'
 import { useEffect } from 'react'
 
 import {
-  type Body_login_login_access_token as AccessToken,
-  LoginService,
+  type BodyLoginLoginAccessToken as AccessToken,
+  loginLoginAccessToken,
+  loginLogout,
   type UserPublic,
   type UserRegister,
-  UsersService,
+  usersReadUserMe,
+  usersRegisterUser,
 } from '@/client'
 import { useAuthStore } from '@/store/useAuthStore'
 import { handleError } from '@/utils'
@@ -20,7 +22,7 @@ export const getAuthUser = async (): Promise<UserPublic> => {
   }
 
   try {
-    const user = await UsersService.readUserMe()
+    const user = await usersReadUserMe()
     useAuthStore.getState().setUser(user)
     return user
   } catch (error) {
@@ -42,9 +44,10 @@ const useAuth = () => {
 
   const { data: user } = useQuery<UserPublic | null, Error>({
     queryKey: ['currentUser'],
-    queryFn: UsersService.readUserMe,
+    queryFn: () => usersReadUserMe(),
     enabled: !isAuthRoute,
     initialData: () => useAuthStore.getState().user || undefined,
+    retry: false,
   })
 
   useEffect(() => {
@@ -54,8 +57,7 @@ const useAuth = () => {
   }, [user, setUser])
 
   const signUpMutation = useMutation({
-    mutationFn: (data: UserRegister) =>
-      UsersService.registerUser({ requestBody: data }),
+    mutationFn: (data: UserRegister) => usersRegisterUser({ body: data }),
     onSuccess: () => {
       navigate({ to: '/login' })
     },
@@ -66,10 +68,10 @@ const useAuth = () => {
   })
 
   const login = async (data: AccessToken) => {
-    await LoginService.loginAccessToken({
-      formData: data,
+    await loginLoginAccessToken({
+      body: data,
     })
-    const user = await UsersService.readUserMe()
+    const user = await usersReadUserMe()
     setUser(user)
     queryClient.setQueryData(['currentUser'], user)
   }
@@ -84,7 +86,7 @@ const useAuth = () => {
 
   const logout = async () => {
     try {
-      await LoginService.logout()
+      await loginLogout()
     } catch (error) {
       console.error('Error logging out', error)
     }

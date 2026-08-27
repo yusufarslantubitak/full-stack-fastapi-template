@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-import { UsersService } from '@/client'
+import { usersDeleteUserMe } from '@/client'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -22,14 +22,13 @@ import { handleError } from '@/utils'
 const DeleteConfirmation = () => {
   const { t } = useTranslation()
   const queryClient = useQueryClient()
-  const { showSuccessToast, showErrorToast } = useCustomToast()
+  const { showErrorToast } = useCustomToast()
   const { handleSubmit } = useForm()
   const { logout } = useAuth()
 
   const mutation = useMutation({
-    mutationFn: () => UsersService.deleteUserMe(),
+    mutationFn: () => usersDeleteUserMe(),
     onSuccess: async () => {
-      showSuccessToast(t('settings.successAccountDeleted'))
       await logout()
     },
     onError: handleError.bind(showErrorToast),

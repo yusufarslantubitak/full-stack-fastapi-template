@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
 
-import type { Body_login_login_access_token as AccessToken } from '@/client'
+import type { BodyLoginLoginAccessToken as AccessToken } from '@/client'
 import { AuthLayout } from '@/components/Common/AuthLayout'
 import {
   Form,

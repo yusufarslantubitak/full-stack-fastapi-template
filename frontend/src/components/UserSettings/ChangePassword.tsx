@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
 
-import { type UpdatePassword, UsersService } from '@/client'
+import { type UpdatePassword, usersUpdatePasswordMe } from '@/client'
 import {
   Form,
   FormControl,
@@ -63,8 +63,7 @@ const ChangePassword = () => {
   })
 
   const mutation = useMutation({
-    mutationFn: (data: UpdatePassword) =>
-      UsersService.updatePasswordMe({ requestBody: data }),
+    mutationFn: (data: UpdatePassword) => usersUpdatePasswordMe({ body: data }),
     onSuccess: () => {
       showSuccessToast(t('settings.successPasswordUpdated'))
       form.reset()

@@ -5,13 +5,20 @@ import {
 } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 
-import { type ItemCreate, ItemsService, type ItemUpdate } from '@/client'
+import {
+  type ItemCreate,
+  type ItemUpdate,
+  itemsCreateItem,
+  itemsDeleteItem,
+  itemsReadItems,
+  itemsUpdateItem,
+} from '@/client'
 import useCustomToast from '@/hooks/useCustomToast'
 import { handleError } from '@/utils'
 
 export const itemsQueryOptions = {
   queryKey: ['items'] as const,
-  queryFn: () => ItemsService.readItems({ skip: 0, limit: 100 }),
+  queryFn: () => itemsReadItems({ query: { skip: 0, limit: 100 } }),
 }
 
 export const useItemsSuspenseQuery = () => {
@@ -24,8 +31,7 @@ export const useCreateItemMutation = (options?: { onSuccess?: () => void }) => {
   const { t } = useTranslation()
 
   return useMutation({
-    mutationFn: (data: ItemCreate) =>
-      ItemsService.createItem({ requestBody: data }),
+    mutationFn: (data: ItemCreate) => itemsCreateItem({ body: data }),
     onSuccess: () => {
       showSuccessToast(t('items.successCreated'))
       options?.onSuccess?.()
@@ -47,7 +53,7 @@ export const useUpdateItemMutation = (
 
   return useMutation({
     mutationFn: (data: ItemUpdate) =>
-      ItemsService.updateItem({ id, requestBody: data }),
+      itemsUpdateItem({ path: { id }, body: data }),
     onSuccess: () => {
       showSuccessToast(t('items.successUpdated'))
       options?.onSuccess?.()
@@ -65,7 +71,7 @@ export const useDeleteItemMutation = (options?: { onSuccess?: () => void }) => {
   const { t } = useTranslation()
 
   return useMutation({
-    mutationFn: (id: string) => ItemsService.deleteItem({ id }),
+    mutationFn: (id: string) => itemsDeleteItem({ path: { id } }),
     onSuccess: () => {
       showSuccessToast(t('items.successDeleted'))
       options?.onSuccess?.()
